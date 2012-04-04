@@ -5,7 +5,15 @@ Pulls data from a list of RSS feeds, displays on a home-page.
 
 Runs on Flask and MongoDB.
 
-Dependencies: flask, pymongo, feedparser.
+See http://tonyblundell.net for an example.
+
+Dependencies
+------------
+
+flask, pymongo, feedparser
+
+Overview
+--------
 
 config.py is where the list of feeds is kept (along with some other settings), comments and an example are included.
 
