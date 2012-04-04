@@ -1,0 +1,10 @@
+a { color: #333; text-decoration: underline; }
+a.post { text-decoration: none; }
+a:hover { color: #08c; text-decoration: underline; }
+h2 a { text-decoration: none; }
+.container { margin-top: 12px; margin-bottom: 12px; }
+.row.head, .row.body { margin-bottom: 24px; }
+.row.foot { text-align: right; }
+.feed { margin-bottom: 12px; }
+.post { margin-bottom: 12px; }
+.post .time { color: #777; }
