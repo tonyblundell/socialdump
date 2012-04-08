@@ -25,12 +25,16 @@ def main():
 
 			if entry.id and entry.date_parsed and entry.title:
 				if not coll.find_one({'id': entry.id}):
-					coll.insert({
-						'id': entry.id,
-						'time': entry.date_parsed,
-						'detail': entry.title,
-						'url': entry.link
-					})
+					last = coll.find().sort('time', -1).limit(1)
+					if last:
+						last = last[0]
+						if last.detail != entry.title:
+							coll.insert({
+								'id': entry.id,
+								'time': entry.date_parsed,
+								'detail': entry.title,
+								'url': entry.link
+							})
 
 
 if __name__ == '__main__':
