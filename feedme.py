@@ -20,6 +20,10 @@ def main():
         # Parse the feed's URL using the feedparser library
         parsed = feedparser.parse(feed['feed_url'])
 
+        # Grab the last item in the database for comparison
+        last = coll.find().sort('time', -1).limit(1)
+        last = last[0] if last.count() > 0 else None
+
         # Add each entry in turn
         for entry in parsed.entries:
 
@@ -50,10 +54,6 @@ def main():
                         'url': entry.link
                     }
 
-                    # Check the last item in the database
-                    last = coll.find().sort('time', -1).limit(1)
-                    last = last[0] if last.count() > 0 else None
-
                     # If this entry has the same text as the last one, just update its timestamp (if necessary)
                     if last and last['detail'] == entry.title:
                         if last['time'] < entry.date_parsed:
@@ -62,6 +62,9 @@ def main():
                     # If this entry is different to the last one, add a new record
                     else:
                         coll.insert(doc)
+
+                    # The new entry now becomes the last so we can check against it in the next iteration
+                    last = doc
 
 
 if __name__ == '__main__':
