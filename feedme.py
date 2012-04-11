@@ -28,7 +28,7 @@ def main():
                     last = coll.find().sort('time', -1).limit(1)
                     if last:
                         last = last[0]
-                        if last.detail == entry.title:
+                        if last['detail'] == entry.title:
                             coll.update(last, {'time': entry.date_parsed})
                         else:
                             coll.insert({
