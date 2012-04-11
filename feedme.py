@@ -45,10 +45,14 @@ def main():
                     # Check the newest item in the collection,
                     # if it has the same text as this entry, just update its timestamp
                     last = coll.find().sort('time', -1).limit(1)
-                    if last.count() > 0 and last[0]['detail'] == entry.title
-                        updated = last
-                        updated['time'] = entry.date_parsed
-                        coll.update(last, updated)
+                    last = last[0] if last.count() > 0 else None
+
+                    # If this entry has the same text as the last one, just update its timestamp (if necessary)
+                    if last and last['detail'] == entry.title:
+                        if last['time'] < entry.date_parsed:
+                            updated = last.copy()
+                            updated['time'] = entry.date_parsed
+                            coll.update(last, updated)
 
                     # If this entry is different to the last one, add a new record
                     else:
