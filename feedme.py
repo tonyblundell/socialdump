@@ -42,26 +42,26 @@ def main():
                 # Check for this feed's ID in the DB, don't insert twice
                 if not coll.find_one({'id': entry.id}):
 
-                    # Check the newest item in the collection,
-                    # if it has the same text as this entry, just update its timestamp
+                    # Create a doc for mongo (a python dict will do)
+                    doc = {
+                        'id': entry.id,
+                        'time': entry.date_parsed,
+                        'detail': entry.title,
+                        'url': entry.link
+                    }
+
+                    # Check the last item in the database
                     last = coll.find().sort('time', -1).limit(1)
                     last = last[0] if last.count() > 0 else None
 
                     # If this entry has the same text as the last one, just update its timestamp (if necessary)
                     if last and last['detail'] == entry.title:
                         if last['time'] < entry.date_parsed:
-                            updated = last.copy()
-                            updated['time'] = entry.date_parsed
-                            coll.update(last, updated)
+                            coll.update(last, doc)
 
                     # If this entry is different to the last one, add a new record
                     else:
-                        coll.insert({
-                            'id': entry.id,
-                            'time': entry.date_parsed,
-                            'detail': entry.title,
-                            'url': entry.link
-                        })
+                        coll.insert(doc)
 
 
 if __name__ == '__main__':
