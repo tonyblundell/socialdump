@@ -1,4 +1,5 @@
-config_prod.py
+﻿config_prod.py
+config_dev.py
 
 *.py[co]
 

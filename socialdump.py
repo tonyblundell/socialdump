@@ -5,6 +5,7 @@ from datetime import timedelta
 from flask import Flask, render_template
 import pymongo
 import re
+import sys
 
 
 app = Flask(__name__)
@@ -77,4 +78,9 @@ def time_since(dt, default='just now'):
 
 
 if __name__ == '__main__':
+    try:
+        config_module = sys.argv[1]
+    except IndexError:
+        config_module = 'config'
+    config = __import__(config_module)
     app.run(debug=config.DEBUG);
