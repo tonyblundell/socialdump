@@ -1,14 +1,14 @@
 from datetime import datetime
 import feedparser
-from pymongo import Connection
-import config
+import pymongo
+import sys
 from time import mktime
 
 
 def main():
     
     # Connect to mongo
-    connection = Connection(port=config.MONGO_PORT)
+    connection = pymongo.Connection(port=config.MONGO_PORT)
     db = connection[config.DB]
 
     # Parse each feed in turn 
@@ -16,6 +16,10 @@ def main():
 
         # Each feed has it's own mongo collection
         coll = db[feed['label']]
+
+        # Grab the last entry, we'll use it to ensure we don't enter duplicates
+        last_list = coll.find().sort('time', pymongo.DESCENDING).limit(1)
+        last = last_list[0] if last_list.count() > 0 else {'detail': None}
 
         # Parse the feed's URL using the feedparser library
         parsed = feedparser.parse(feed['feed_url'])
@@ -43,7 +47,7 @@ def main():
             if entry.id and entry.date_parsed and entry.title:
 
                 # Check for this feed's ID in the DB, don't insert twice
-                if not coll.find_one({'id': entry.id}) and not coll.find_one({'detail': entry.title}):
+                if not coll.find_one({'id': entry.id}) and not last['detail'] == entry.title:
 
                     # Create a doc for mongo (a python dict will do)
                     doc = {
@@ -54,6 +58,14 @@ def main():
                     }
                     coll.insert(doc)
 
+                    # The newly inserted item will be used for comparison next time
+                    last == doc
+
 
 if __name__ == '__main__':
+    try:
+        config_module = sys.argv[1]
+    except IndexError:
+        config_module = 'config'
+    config = __import__(config_module)
     main()
