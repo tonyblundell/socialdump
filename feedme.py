@@ -58,8 +58,8 @@ def main():
                     }
                     coll.insert(doc)
 
-                    # The newly inserted item will be used for comparison next time
-                    last == doc
+                # The newly inserted item will be used for comparison next time
+                last == doc
 
 
 if __name__ == '__main__':
