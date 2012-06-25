@@ -38,7 +38,7 @@ def main():
             entry.title = entry.title if entry.title.startswith('http') else entry.title[0].upper() + entry.title[1:]
 
             # If the entry doesn't have an ID, use its title instead
-            entry.id = getattr(entry, 'id', entry.title)
+            entry.id = getattr(entry, 'id', entry.date_title)
 
             # The entry may have a link, set to None if not, so we can still ref the attr
             entry.link = getattr(entry, 'link', None)
