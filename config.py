@@ -1,8 +1,10 @@
+HOST = '127.0.0.1'
+
 DEBUG = False
 
 TIME_OFFSET = 6 # In hours. Use to normalize the 'posted * hours ago' times.
 
-MONGO_PORT = 23619
+MONGO_PORT = 26119
 
 DB = 'socialdump'
 
