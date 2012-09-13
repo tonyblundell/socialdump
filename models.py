@@ -3,6 +3,9 @@ import feedparser
 from mongoengine import *
 
 
+connect('socialdump')
+
+
 class Post(EmbeddedDocument):
     uid = StringField(required=True)
     txt = StringField(required=True)
@@ -14,12 +17,14 @@ class Post(EmbeddedDocument):
 
 
 class Feed(Document):
+    ordr = IntField(default=0)
     lbl = StringField(required=True, primary_key=True)
     furl = URLField(required=True) # Feed URL
     surl = URLField() # Site URL
     lnk = BooleanField(default=False) # Entire post is a link
     strp = StringField(default='') # String to strip from start of all posts
     psts = CappedSortedListField(EmbeddedDocumentField(Post), cap=5, ordering='dt', reverse=True)
+    meta = {'ordering': ['ordr']}
 
     def __unicode__(self):
         return self.lbl.encode('utf-8')
@@ -44,6 +49,5 @@ class Feed(Document):
 
 
 if __name__ == '__main__':
-    connect('socialdump')
     for feed in Feed.objects:
         feed.pull()

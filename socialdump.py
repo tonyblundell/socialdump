@@ -6,7 +6,8 @@ from flask import Flask, render_template
 import pymongo
 import re
 import sys
-
+import mongoengine
+from models import Feed
 
 app = Flask(__name__)
 
@@ -17,26 +18,8 @@ def index():
         The index page of our site. Grabs feeds from Mongo, renders with a Jinja template.
     """
 
-    # Connect to mongo
-    connection = pymongo.Connection(port=config.MONGO_PORT)
-    db = connection[config.DB]
-
-    # Grab our feeds
-    feeds = []
-    for feed in config.FEEDS:
-        posts = db[feed['label']].find().sort('time', pymongo.DESCENDING).limit(feed['num_posts'])
-        feeds.append((feed['pretty_label'], feed['home_url'], feed['entire_post_is_a_link'], posts))
-
-    # Build some data to send to the template
-    kwargs = {
-        'title': config.TITLE,
-        'tag_line': config.TAG_LINE,
-        'num_cols': config.NUM_COLS,
-        'contact': config.CONTACT,
-        'feeds': feeds
-    }
-
-    return render_template('index.html', **kwargs)
+    mongoengine.connect('socialdump')
+    return render_template('index.html', feeds=Feed.objects)
 
 
 @app.template_filter()

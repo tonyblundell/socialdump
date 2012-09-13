@@ -1,70 +1,43 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>{{ title }}</title>
+  <head>
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <!-- Bootstrap -->
 	<link rel="stylesheet" media="screen" href="{{ url_for('static', filename='bootstrap.min.css') }}" />
+	<link rel="stylesheet" media="screen" href="{{ url_for('static', filename='bootstrap-responsive.min.css') }}" />
 	<link rel="stylesheet" media="screen" href="{{ url_for('static', filename='style.css') }}" />
-	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-</head>
-<body>
+  </head>
+  <body>
+  <div class="container">
 
-	<div class="container">
+<div class="row">
+  <div class="span12 header"><h1>Tony Blundell<br /><small>Pythonista, Javascription. Sheffield, UK.</small></h1></div>
+</div>
 
-		<div class="head row">
-			<div class="span12">
-				<h1>{{ title }}</h1>
-				<div class="tag-line">{{ tag_line }}</div>
-			</div>
-		</div>
+{% for row in feeds|batch(3) %}
+<div class="row">
+  {% for feed in row %}
+  <div class="span4 feed">
+  	<h3>{{ feed.lbl }}</h3>
+  	{% for post in feed.psts %}
+  	<div class="post">
+  	  <div class="text">{{ post.txt }}</div>
+  	  <div class="time">{{ post.dt }}</div>
+  	</div>
+  	{% endfor %}
+  </div>
+  {% endfor %}
+</div>
+{% endfor %}
 
-		<div class="body row">
-			{% set col_width = (12 / num_cols)|int %}
-			{% for slice in feeds|slice(num_cols) %}
-				<div class="span{{ col_width }}">
-					{% for feed in slice %}
-						<div class="feed">
-							{% set pretty_label, home_url, entire_post_is_a_link, posts = feed %}
-							{% if home_url %}
-								<h2><a href="{{ home_url }}">{{ pretty_label }}</a></h2>
-							{% else %}
-								<h2>{{ pretty_label }}</h2>
-							{% endif %}
-							{% for post in posts %}
-								<div class="post">
-									<div class="detail">
-										{% if entire_post_is_a_link %}
-											<a class="post" href="{{ post.url }}">{{ post.detail }}</a>
-										{% else %}
-											<span>{{ post.detail|twitterize|safe|urlize }}</span>
-										{% endif %}
-									</div>
-									<div class="time">{{ post.time|time_since }}</div>
-								</div>
-							{% else %}
-								<span>No posts found</span>
-							{% endfor %}
-						</div>
-					{% endfor %}
-				</div>
-			{% endfor %}
-		</div>
+<div class="row">
+  <div class="span12 footer">
+  	Contact me: <a href="mailto:tonyblundell@gmail.com">tonyblundell@gmail.com</a></br>
+  	<a href="https://github.com/tonyblundell/socialdump">This site's source is on GitHub</a>
+  </div>
+</div>
 
-		<div class="foot row">
-			<div class="span12">
-				{% if contact %}
-					{% set contact_url, contact_detail = contact %}
-					{% if contact_url %}
-						<div class="contact">Contact me:  <a href="{{ contact_url }}">{{ contact_detail }}</a></div>
-					{% else %}
-						<div class="contact">Contact me: {{ contact_detail }}</div>
-					{% endif %}
-				{% endif %}
-				<div><a href="https://github.com/tonyblundell/socialdump">This site's source on GitHub</a></div>
-			</div>
-		</div>
-
-	</div>
-
-</body>
+  </div>
+  </body>
 </html>
