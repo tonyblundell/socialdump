@@ -23,7 +23,7 @@ class Feed(Document):
     surl = URLField() # Site URL
     lnk = BooleanField(default=False) # Entire post is a link
     strp = StringField(default='') # String to strip from start of all posts
-    psts = CappedSortedListField(EmbeddedDocumentField(Post), cap=5, ordering='dt', reverse=True)
+    psts = CappedSortedListField(EmbeddedDocumentField(Post), cap=15, ordering='dt', reverse=True)
     meta = {'ordering': ['ordr']}
 
     def __unicode__(self):
@@ -36,7 +36,8 @@ class Feed(Document):
                 return
         post = Post()
         post.uid = uid
-        post.txt = entry.title.replace(self.strp, '').capitalize()
+        post.txt = entry.title.replace(self.strp, '')
+        post.txt = (post.txt[0] if post.txt.startswith('http') else post.txt[0].upper()) + post.txt[1:]
         post.dt = datetime.datetime(*(entry.published_parsed[:6]))
         post.url = entry.link
         self.psts.append(post)

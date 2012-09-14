@@ -38,7 +38,7 @@ def time_since(dt, default='just now'):
     """
         Jinja filter replaces a date-time with an age string ('3 hours ago', '2 days ago', etc.)
     """
-    now = datetime.now() + timedelta(hours=config.TIME_OFFSET)
+    now = datetime.utcnow()
     diff = now - dt
 
     if diff.total_seconds() > 0:

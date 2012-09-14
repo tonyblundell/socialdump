@@ -1,3 +1,10 @@
-.post { margin-bottom: 10px; }
+body { padding-top: 25px; padding-bottom: 25px; font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:13px;line-height:18px;color:#333333; }
+h1 { font-size: 30px; font-weight: bold; margin-bottom: 5px; font-family: Georgia, 'Times New Roman', Times, serif;}
+h3 { font-size: 24px; font-weight: bold; margin-bottom: 10px; font-family: Georgia, 'Times New Roman', Times, serif;}
+a { color: #333; }
+a:hover { color: #777; }
+.header { margin-bottom: 25px; }
+.feed { margin-bottom: 25px; }
+.post { margin-bottom: 15px; }
 .time { color: #777; }
 .footer { text-align: right; }
