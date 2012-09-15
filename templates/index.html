@@ -8,15 +8,17 @@
     <body>
         {% macro feed_col(feed, num_posts) %}
             <div class="span4 feed {% if feed.lnk %}post_is_link{% endif %}">
-                <h3>
-                    {% if feed.surl %}
-                    <a href="{{ feed.surl }}">{{ feed.lbl }}</a>
-                    {% else %}
-                    <span>{{ feed.lbl }}</span>
-                    {% endif %}
-                </h3>
+                <div class="header">
+                    <h3>
+                        {% if feed.surl %}
+                        <a href="{{ feed.surl }}">{{ feed.lbl }}</a>
+                        {% else %}
+                        <span>{{ feed.lbl }}</span>
+                        {% endif %}
+                    </h3>
+                </div>
                 {% for post in feed.psts[:num_posts] %}
-                <div class="post">
+                <div class="post {% if loop.index > 3 %}not-top-3{% endif %}">
                     <div class="text">
                         {% if feed.lnk %}
                         <a href="{{ post.url }}">{{ post.txt }}</a>
@@ -55,8 +57,8 @@
 
             <div class="row footer">
                 <div class="span12">
-                    <span>Contact me: <a href="mailto:tonyblundell@gmail.com">tonyblundell@gmail.com</a></span></br>
-                    <a href="https://github.com/tonyblundell/socialdump">This site's source is on GitHub</a>
+                    <div>Contact me: <a href="mailto:tonyblundell@gmail.com">tonyblundell@gmail.com</a></div>
+                    <div><a href="https://github.com/tonyblundell/socialdump">This site's source is on GitHub</a></div>
                 </div>
             </div>
 
