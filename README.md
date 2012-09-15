@@ -7,16 +7,10 @@ Runs on Flask and MongoDB.
 
 See http://tonyblundell.net for an example.
 
+Run 'python socialdump.py pull' to parse latest feeds from RSS.
+
+
 Dependencies
 ------------
 
-flask, pymongo, feedparser
-
-Overview
---------
-
-config.py is where the list of feeds is kept (along with some other settings), comments and an example are included.
-
-feedme.py parses the feeds and should be run regularly as a cron-job or similar.
-
-socialdump.py is the Flask server that serves the page.
+flask, mongoengine, feedparser

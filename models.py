@@ -30,6 +30,9 @@ class Feed(Document):
         return self.lbl.encode('utf-8')
 
     def parse_feedparser_entry(self, entry):
+        """
+            Parses a feedparser entry object to a post in self.psts (if not already existant).
+        """
         uid = getattr(entry, 'id', None) or entry.link
         for post in self.psts:
             if post.uid == uid:
@@ -43,10 +46,15 @@ class Feed(Document):
         self.psts.append(post)
 
     def pull(self):
+        """
+            Download the RSS/ATOM feed, parse with feedparser, add new posts.
+        """
         for entry in feedparser.parse(self.furl).entries:
-            self.parse_feedparser_entry(entry)
+            try:
+                self.parse_feedparser_entry(entry)
+            except AttributeError:
+                pass # Couldn't add entry as it was incomplete
         self.save()
-        self.reload()
 
 
 if __name__ == '__main__':
