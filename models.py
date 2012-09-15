@@ -50,6 +50,7 @@ class Feed(Document):
             try:
                 self.parse_feedparser_entry(entry)
             except AttributeError:
+                print 'FFS'
                 pass # Couldn't add entry as it was incomplete
         self.save()
 

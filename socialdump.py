@@ -8,6 +8,7 @@ import sys
 
 app = Flask(__name__)
 app.config.from_object('config')
+mongoengine.connect(app.config['MONGODB_DB'], port=app.config['MONGODB_PORT'])
 
 
 @app.template_filter()
@@ -52,7 +53,6 @@ def index():
 
 
 if __name__ == '__main__':
-    mongoengine.connect(app.config['MONGODB_DB'], port=app.config['MONGODB_PORT'])
     if 'pull' in sys.argv:
         for feed in Feed.objects:
             feed.pull()
