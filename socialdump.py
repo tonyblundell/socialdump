@@ -52,7 +52,7 @@ def index():
 
 
 if __name__ == '__main__':
-    mongoengine.connect(app.config['MONGODB_DB'])
+    mongoengine.connect(app.config['MONGODB_DB'], port=app.config['MONGODB_PORT'])
     if 'pull' in sys.argv:
         for feed in Feed.objects:
             feed.pull()
