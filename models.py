@@ -3,9 +3,6 @@ import feedparser
 from mongoengine import *
 
 
-connect('socialdump')
-
-
 class Post(EmbeddedDocument):
     uid = StringField(required=True)
     txt = StringField(required=True)
