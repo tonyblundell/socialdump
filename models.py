@@ -19,7 +19,7 @@ class Feed(Document):
     furl = URLField(required=True) # Feed URL
     surl = URLField() # Site URL
     lnk = BooleanField(default=False) # Entire post is a link
-    strp = StringField(default='') # String to strip from post text
+    strp = StringField(default='') # String to strip from start of all posts
     psts = CappedSortedListField(EmbeddedDocumentField(Post), cap=15, ordering='dt', reverse=True)
     meta = {'ordering': ['ordr']}
 
@@ -28,19 +28,27 @@ class Feed(Document):
 
     def parse_feedparser_entry(self, entry):
         """
-            Parses a feedparser entry object to a post in self.psts (if not already existant).
+            Parse a feedparser entry object to a post in self.psts (if not already existant).
         """
         uid = getattr(entry, 'id', None) or entry.link
-        for post in self.psts:
-            if post.uid == uid:
+        dt = datetime.datetime(*(entry.published_parsed[:6]))
+        txt = entry.title.replace(self.strp, '')
+        txt = (txt[0] if txt.startswith('http') else txt[0].upper()) + txt[1:]
+        url = entry.link
+
+        # If the post already exists, update it 
+        for i, pst in enumerate(self.psts):
+            if pst.uid == uid or pst.txt == txt:
+                pst.dt = max(pst.dt, dt)
+                pst.txt = txt
+                pst.url = url
+                self.psts[i] = pst
+                self.save()
                 return
-        post = Post()
-        post.uid = uid
-        post.txt = entry.title.replace(self.strp, '')
-        post.txt = (post.txt[0] if post.txt.startswith('http') else post.txt[0].upper()) + post.txt[1:]
-        post.dt = datetime.datetime(*(entry.published_parsed[:6]))
-        post.url = entry.link
-        self.psts.append(post)
+
+        # Otherwise, just add the post to the list
+        pst = Post(uid=uid, dt=dt, txt=txt, url=url)
+        self.psts.append(pst)
 
     def pull(self):
         """
