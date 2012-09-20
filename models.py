@@ -19,7 +19,7 @@ class Feed(Document):
     furl = URLField(required=True) # Feed URL
     surl = URLField() # Site URL
     lnk = BooleanField(default=False) # Entire post is a link
-    strp = StringField(default='') # String to strip from start of all posts
+    strp = StringField(default='') # String to strip from post text
     psts = CappedSortedListField(EmbeddedDocumentField(Post), cap=15, ordering='dt', reverse=True)
     meta = {'ordering': ['ordr']}
 
