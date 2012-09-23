@@ -7,7 +7,7 @@ Runs on Flask and MongoDB.
 
 See http://tonyblundell.net for an example.
 
-Run 'python socialdump.py pull' to parse latest feeds via RSS.
+Run 'python socialdump.py pull' to parse latest feeds via RSS (stick this in a cron job).
 
 See inline comments in socialdump.py and models.py for more info.
 
