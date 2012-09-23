@@ -1,6 +1,6 @@
 import cgi
 import datetime
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 from models import Feed
 import mongoengine
 import re
