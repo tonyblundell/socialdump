@@ -34,6 +34,13 @@
 
         <div class="container">
 
+            <div class="row contact">
+                <div class="span12">
+                    Contact <a href="mailto:tonyblundell@gmail.com">tonyblundell@gmail.com</a>&nbsp;|&nbsp;
+                    <a href="http://github.com/tonyblundell/socialdump">Source on GitHub</a>
+                </div>
+            </div>
+
             <div class="row header">
                 <div class="span12">
                     <h1>Tony Blundell</h1>
@@ -41,26 +48,13 @@
                 </div>
             </div>
 
+            {% for row in feeds|batch(3) %}
             <div class="row">
-                {{ feed_col(feeds[0], 15) }}
-
-                <div class="span8">
-                    {% for row in feeds[1:]|batch(2) %}
-                    <div class="row">
-                        {% for feed in row %}
-                        {{ feed_col(feed, 5) }}
-                        {% endfor %}
-                    </div>
-                    {% endfor %}
-                </div>  
+                {% for feed in row %}
+                {{ feed_col(feed, 5) }}
+                {% endfor %}
             </div>
-
-            <div class="row footer">
-                <div class="span12">
-                    <div>Contact me: <a href="mailto:tonyblundell@gmail.com">tonyblundell@gmail.com</a></div>
-                    <div><a href="https://github.com/tonyblundell/socialdump">This site's source is on GitHub</a></div>
-                </div>
-            </div>
+            {% endfor %}
 
         </div>
   </body>
