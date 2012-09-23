@@ -1,6 +1,6 @@
 import cgi
 import datetime
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template
 from models import Feed
 import mongoengine
 import re
@@ -8,7 +8,6 @@ import sys
 
 app = Flask(__name__)
 app.config.from_object('config')
-app.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon.ico'))
 mongoengine.connect(app.config['MONGODB_DB'], port=app.config['MONGODB_PORT'])
 
 

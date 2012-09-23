@@ -4,6 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ config.SOCIALDUMP_HEADING }}</title>
         <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='style.css') }}" />
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     </head>
     <body>
         {% macro feed_col(feed, num_posts) %}
