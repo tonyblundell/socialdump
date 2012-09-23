@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Tony Blundell</title>
+        <title>{{ config.SOCIALDUMP_HEADING }}</title>
         <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='style.css') }}" />
     </head>
     <body>
@@ -36,7 +36,7 @@
             <div class="container">
                 <div class="row">
                     <div class="span12">
-                        Contact <a href="mailto:tonyblundell@gmail.com">tonyblundell@gmail.com</a>&nbsp;|&nbsp;
+                        Contact <a href="mailto:{{ config.SOCIALDUMP_EMAIL }}">{{ config.SOCIALDUMP_EMAIL }}</a>&nbsp;|&nbsp;
                         <a href="http://github.com/tonyblundell/socialdump">Source on GitHub</a>
                     </div>
                 </div>
@@ -47,8 +47,8 @@
 
             <div class="row header">
                 <div class="span12">
-                    <h1>Tony Blundell</h1>
-                    <p>Pythonista, Javascriptician. Sheffield UK.</p>
+                    <h1>{{ config.SOCIALDUMP_HEADING }}</h1>
+                    <p>{{ config.SOCIALDUMP_SUBHEADING }}</p>
                 </div>
             </div>
 
