@@ -8,6 +8,7 @@ import sys
 
 app = Flask(__name__)
 app.config.from_object('config')
+app.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon.ico'))
 mongoengine.connect(app.config['MONGODB_DB'], port=app.config['MONGODB_PORT'])
 
 
