@@ -37,22 +37,27 @@
             <div class="container">
                 <div class="row">
                     <div class="span12">
-                        Contact <a href="mailto:{{ config.SOCIALDUMP_EMAIL }}">{{ config.SOCIALDUMP_EMAIL }}</a>&nbsp;|&nbsp;
-                        <a href="http://github.com/tonyblundell/socialdump">Source on GitHub</a>
+                        <ul>
+                            <li><a id="email-address" href="mailto:{{ config.SOCIALDUMP_EMAIL }}">{{ config.SOCIALDUMP_EMAIL }}</a></li>
+                            <li class="last"><a href="http://github.com/tonyblundell/socialdump">Site Source on GitHub</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-container">
+            <div class="container">
+                <div class="row header">
+                    <div class="span12">
+                        <h1>{{ config.SOCIALDUMP_HEADING }}</h1>
+                        <p>{{ config.SOCIALDUMP_SUBHEADING }}</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="container">
-
-            <div class="row header">
-                <div class="span12">
-                    <h1>{{ config.SOCIALDUMP_HEADING }}</h1>
-                    <p>{{ config.SOCIALDUMP_SUBHEADING }}</p>
-                </div>
-            </div>
-
             {% for row in feeds|batch(3) %}
             <div class="row">
                 {% for feed in row %}
@@ -60,7 +65,6 @@
                 {% endfor %}
             </div>
             {% endfor %}
-
         </div>
   </body>
 </html>
