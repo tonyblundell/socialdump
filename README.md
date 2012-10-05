@@ -28,4 +28,4 @@ MONGODB_DB = 'socialdump'
 MONGODB_PORT = 27017  
 SOCIALDUMP_EMAIL = 'tonyblundell@gmail.com'  
 SOCIALDUMP_HEADING = 'Tony Blundell'  
-SOCIALDUMP_SUBHEADING = 'Pythonista, Javascriptician. Sheffield UK.'  
+SOCIALDUMP_SUBHEADING = 'Talented Programmer, Crap Guitarist. Sheffield UK.'  
