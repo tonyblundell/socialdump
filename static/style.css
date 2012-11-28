@@ -117,6 +117,7 @@ body, a { color: #222; } a:hover { color: #00c; } .time { color: #666; font-fami
 .feed { margin-bottom: 30px; } .feed .header { margin-bottom: 20px; } .post, h1 { margin-bottom: 10px; }
 .top { text-align: right; padding: 5px 0; }
 .top li { display: inline; margin-right: 10px; } .top li.last { margin-right: 0; }
-.header-container { padding: 20px 20px; margin-bottom: 40px; }
+.page-header { padding: 20px 0; margin-bottom: 40px; }
+.tagline, .top  { font-family: "Cabin", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 .post { line-height: 150%; }
 @media (max-width:767px){body{padding-left:0;padding-right:0;} .container{padding-left:20px;padding-right:20px;} .not-top-3{display:none;}}
