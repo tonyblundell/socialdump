@@ -111,9 +111,9 @@ textarea{overflow:auto;vertical-align:top;}
 body { background: #ebeff0 url(/static/bg.png); padding-bottom: 40px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size:13px; }
 h1 { font-size: 30px; } h3 { font-size: 24px; } .time { font-size: 12px; }
 h1, h3 { font-weight: bold; }
-h1, h3, .time { text-transform: uppercase; }  h3 a, .feed.post_is_link a { text-decoration: none; }
+h1, h3 { text-transform: uppercase; }  h3 a, .feed.post_is_link a { text-decoration: none; }
 h3 a:hover, .feed.post_is_link a:hover { text-decoration: underline; }
-body, a { color: #222; } a:hover { color: #00c; } .time { color: #666; } 
+body, a { color: #222; } a:hover { color: #00c; } .time { color: #999; } 
 .feed { margin-bottom: 30px; } .feed .header { margin-bottom: 20px; } .post, h1 { margin-bottom: 10px; }
 .top { text-align: right; padding: 5px 0; }
 .top li { display: inline; margin-right: 10px; } .top li.last { margin-right: 0; }
